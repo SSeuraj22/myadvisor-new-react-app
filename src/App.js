@@ -12,10 +12,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
   const localizer = momentLocalizer(moment);
+  const notify = () => toast("Wow so hard!");
 
   const myEventsList = [
     {
@@ -90,6 +93,11 @@ function App() {
 
         <div style={{ marginTop: '20px' }}>
           <DatePicker  selected={startDate} onChange={(date) => setStartDate(date)} />
+        </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <button onClick={notify}>Notify!</button>
+          <ToastContainer />
         </div>
         
 
