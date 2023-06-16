@@ -2,10 +2,23 @@ import logo from './logo.svg';
 import './App.css';
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
-
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 function App() {
+  const localizer = momentLocalizer(moment);
+
+  const myEventsList = [
+    {
+      title: 'Event 1',
+      start: new Date(),
+      end: new Date(),
+    },
+    // Additional events...
+  ];
+
   return (
     <div className="App">
       <header className="App-header">
@@ -34,7 +47,21 @@ function App() {
           <Icon>elderly</Icon>
         </div>
 
+        <div>
+          <Calendar
+            localizer={localizer}
+            events={myEventsList}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+          />
+        </div>
+
+        
+
       </header>
+
+      
     </div>
   );
 }
