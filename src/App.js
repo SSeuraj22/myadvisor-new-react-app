@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaBeer } from "react-icons/fa";
 
 
 function App() {
@@ -99,13 +100,17 @@ function App() {
           <button onClick={notify}>Notify!</button>
           <ToastContainer />
         </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <h3>
+              Lets go for a <FaBeer />?
+          </h3>
+        </div>
         
 
         
 
       </header>
-
-      
     </div>
   );
 }
