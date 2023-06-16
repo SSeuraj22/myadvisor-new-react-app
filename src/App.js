@@ -7,8 +7,11 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Button2 from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { confirmAlert } from 'react-confirm-alert'; // Import
+//import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 
 function App() {
@@ -23,6 +26,7 @@ function App() {
     // Additional events...
   ];
 
+  /*
   confirmAlert({
       title: 'Confirm to submit',
       message: 'Are you sure to do this.',
@@ -37,6 +41,11 @@ function App() {
         }
       ]
   });
+  */
+
+  const [startDate, setStartDate] = useState(new Date());
+    
+
 
   return (
     <div className="App">
@@ -57,19 +66,19 @@ function App() {
         >
           Learn React
         </a>
-        <div>
+        <div style={{ marginTop: '20px' }}>
           <Button variant="contained">Material UI</Button>
         </div>
-        <div>
+        <div style={{ marginTop: '20px' }}>
           <Button2 variant="success">React Bootstrap</Button2>
         </div>
-        <div>
+        <div style={{ marginTop: '20px' }}>
           <Icon>star</Icon>
           <Icon>add_circle</Icon>
           <Icon>elderly</Icon>
         </div>
 
-        <div>
+        <div style={{ marginTop: '20px' }}>
           <Calendar
             localizer={localizer}
             events={myEventsList}
@@ -78,6 +87,11 @@ function App() {
             style={{ height: 500 }}
           />
         </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <DatePicker  selected={startDate} onChange={(date) => setStartDate(date)} />
+        </div>
+        
 
         
 
