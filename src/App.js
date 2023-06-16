@@ -5,6 +5,10 @@ import Icon from '@mui/material/Icon';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Button2 from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 function App() {
@@ -18,6 +22,21 @@ function App() {
     },
     // Additional events...
   ];
+
+  confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => alert('Click Yes')
+        },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+  });
 
   return (
     <div className="App">
@@ -39,7 +58,10 @@ function App() {
           Learn React
         </a>
         <div>
-          <Button variant="contained">Hello World</Button>
+          <Button variant="contained">Material UI</Button>
+        </div>
+        <div>
+          <Button2 variant="success">React Bootstrap</Button2>
         </div>
         <div>
           <Icon>star</Icon>
