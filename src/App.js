@@ -19,6 +19,8 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
 
 
 function App() {
@@ -57,14 +59,37 @@ function App() {
   const selectPriceOptions = {
     100: '100',
     200: '200',
-    300: '300'
+    300: '300',
+    400: '400',
+    500: '500',
+    600: '600',
+    700: '700'
   };
+
+  
 
   const products = [ 
                       { id: 1, name: 'Lipstick', price: 100 },
                       { id: 2, name: 'Foundation', price: 200 },
-                      { id: 3, name: 'Eyeliner', price: 300 } 
+                      { id: 3, name: 'Eyeliner', price: 300 },
+                      { id: 4, name: 'Eyeshadow', price: 400 },
+                      { id: 5, name: 'Concealer', price: 500 },
+                      { id: 6, name: 'Blush', price: 600 },
+                      { id: 7, name: 'Bronzer', price: 700 }   
                    ];
+  
+  const paginationOptions = {
+    custom: true,
+    totalSize: products.length,
+    sizePerPage: 3,
+    pageStartIndex: 1,
+    firstPageText: 'First',
+    prePageText: 'Back',
+    nextPageText: 'Next',
+    lastPageText: 'Last',
+
+
+  };
 
   const columns = [
     {dataField: 'id', text: 'Product ID'}, 
@@ -131,9 +156,21 @@ function App() {
           </h3>
         </div>
 
-        <div style={{ marginTop: '20px' }}>
-          <BootstrapTable keyField='id' data={ products } columns={ columns } filter={ filterFactory() } />
-        </div>
+        
+          <PaginationProvider pagination={paginationFactory(paginationOptions)}>
+            {
+              ({
+                  paginationProps, paginationTableProps
+              }) => (
+                <div style={{ marginTop: '20px' }}>
+                  <BootstrapTable keyField='id' data={ products } columns={ columns } filter={ filterFactory() } {...paginationTableProps}/>
+                  <PaginationListStandalone { ...paginationProps } />
+                </div>
+              )
+            }
+          </PaginationProvider>
+          
+        
         
 
         
