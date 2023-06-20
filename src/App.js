@@ -15,6 +15,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaBeer } from "react-icons/fa";
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 
 function App() {
@@ -48,6 +50,25 @@ function App() {
   */
 
   const [startDate, setStartDate] = useState(new Date());
+
+  const products = [ 
+                      { id: 1, name: 'Product 1', price: 100 },
+                      { id: 2, name: 'Product 2', price: 200 },
+                      { id: 3, name: 'Product 3', price: 300 } 
+                   ];
+
+  const columns = [{
+    dataField: 'id',
+    text: 'Product ID'
+  }, {
+    dataField: 'name',
+    text: 'Product Name'
+  }, {
+    dataField: 'price',
+    text: 'Product Price'
+  }];
+
+   
     
 
 
@@ -105,6 +126,10 @@ function App() {
           <h3>
               Lets go for a <FaBeer />?
           </h3>
+        </div>
+
+        <div style={{ marginTop: '20px' }}>
+          <BootstrapTable keyField='id' data={ products } columns={ columns } />
         </div>
         
 
