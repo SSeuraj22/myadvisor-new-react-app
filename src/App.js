@@ -17,6 +17,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaBeer } from "react-icons/fa";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 
 
 function App() {
@@ -51,26 +53,27 @@ function App() {
 
   const [startDate, setStartDate] = useState(new Date());
 
+  //For select filter
+  const selectPriceOptions = {
+    100: '100',
+    200: '200',
+    300: '300'
+  };
+
   const products = [ 
-                      { id: 1, name: 'Product 1', price: 100 },
-                      { id: 2, name: 'Product 2', price: 200 },
-                      { id: 3, name: 'Product 3', price: 300 } 
+                      { id: 1, name: 'Lipstick', price: 100 },
+                      { id: 2, name: 'Foundation', price: 200 },
+                      { id: 3, name: 'Eyeliner', price: 300 } 
                    ];
 
-  const columns = [{
-    dataField: 'id',
-    text: 'Product ID'
-  }, {
-    dataField: 'name',
-    text: 'Product Name'
-  }, {
-    dataField: 'price',
-    text: 'Product Price'
-  }];
-
+  const columns = [
+    {dataField: 'id', text: 'Product ID'}, 
+    {dataField: 'name', text: 'Product Name', filter: textFilter()}, 
+    {dataField: 'price', text: 'Product Price', formatter: cell => selectPriceOptions[cell], filter: selectFilter({
+      options: selectPriceOptions})
+    }
+  ];
    
-    
-
 
   return (
     <div className="App">
@@ -129,7 +132,7 @@ function App() {
         </div>
 
         <div style={{ marginTop: '20px' }}>
-          <BootstrapTable keyField='id' data={ products } columns={ columns } />
+          <BootstrapTable keyField='id' data={ products } columns={ columns } filter={ filterFactory() } />
         </div>
         
 
