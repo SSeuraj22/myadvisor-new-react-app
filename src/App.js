@@ -21,6 +21,8 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
+//import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 
 
 function App() {
@@ -66,8 +68,6 @@ function App() {
     700: '700'
   };
 
-  
-
   const products = [ 
                       { id: 1, name: 'Lipstick', price: 100 },
                       { id: 2, name: 'Foundation', price: 200 },
@@ -86,9 +86,7 @@ function App() {
     firstPageText: 'First',
     prePageText: 'Back',
     nextPageText: 'Next',
-    lastPageText: 'Last',
-
-
+    lastPageText: 'Last'
   };
 
   const columns = [
@@ -98,6 +96,38 @@ function App() {
       options: selectPriceOptions})
     }
   ];
+
+  const { SearchBar, ClearSearchButton } = Search;
+  const { ExportCSVButton } = CSVExport;
+
+  const table = ({ paginationProps, paginationTableProps }) => (
+    <>
+      <ToolkitProvider 
+          keyField="id"
+          data={ products }
+          columns={ columns }
+          search
+          exportCSV={{
+            fileName: 'products.csv',
+          }}
+          
+        >
+          {
+            props => (
+              <div style={{ marginTop: '20px' }}>
+                <SearchBar { ...props.searchProps } style={{ color: 'blue' }} />
+                <ClearSearchButton style={{ color: 'blue' }} { ...props.searchProps } />
+                <ExportCSVButton { ...props.csvProps }>Export CSV</ExportCSVButton>
+                <hr />
+                <BootstrapTable { ...props.baseProps } filter={ filterFactory() } {...paginationTableProps} hover/>
+              </div>
+            )
+          }
+
+        </ToolkitProvider>
+        <PaginationListStandalone { ...paginationProps } />
+    </>
+  );
    
 
   return (
@@ -156,19 +186,21 @@ function App() {
           </h3>
         </div>
 
-        
-          <PaginationProvider pagination={paginationFactory(paginationOptions)}>
-            {
-              ({
-                  paginationProps, paginationTableProps
-              }) => (
-                <div style={{ marginTop: '20px' }}>
-                  <BootstrapTable keyField='id' data={ products } columns={ columns } filter={ filterFactory() } {...paginationTableProps}/>
-                  <PaginationListStandalone { ...paginationProps } />
-                </div>
-              )
-            }
+        <div style={{ color: 'blue' }}>
+          <PaginationProvider pagination={paginationFactory(paginationOptions)} >
+              {table}
           </PaginationProvider>
+        </div>
+        
+           
+          
+        
+          
+
+          
+
+
+              
           
         
         
