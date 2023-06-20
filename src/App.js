@@ -21,7 +21,7 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
-//import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 
 
@@ -110,7 +110,6 @@ function App() {
           exportCSV={{
             fileName: 'products.csv',
           }}
-          
         >
           {
             props => (
