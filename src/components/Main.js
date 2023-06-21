@@ -174,6 +174,13 @@ function Main() {
       {user === "student" ? <PermanentDrawerRight gpa={gpa} hide={hide} courseInProgCredits={courseInProgCredits} recCourses={recCourses} progress={progress} degProgress={degProgress} credits={credits} show={show} setDisplay={setDisplay} setShowBotButtons={setShowBotButtons} loading={loading} warning={warning} newDeg={newDeg} botButtons={botButtons}/> : null}
       
       <Routes>
+        <Route exact path="/" element={
+          isAuthenticated && user==="student" ? (<Navigate to="/home"/>) : 
+          (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
+          (<Navigate to="/login" />))
+        } />
+
+{/*
         <Route
           exact
           path="/"
@@ -184,12 +191,13 @@ function Main() {
               } else if (isAuthenticated && user==="admin"){
                 return(<Navigate to="/staff"/>)
               } else {
-                return(<Navigate to="/login" />)
+                //console.log("Working")
+                return(<Navigate to="/login"/>)
               }
             }
           }
         />
-        
+        */}
         <Route
           exact
           path="/login"
