@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 
 //Student Imports
 //import StudentProfile from './StudentProfile';
@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-do
 //import Start from './Start';
 //import BeforeBot from './BeforeBot';
 //import Finish from './Finish';
-//import PermanentDrawerRight from "./sidebar";
+import PermanentDrawerRight from "./Sidebar";
 
 //Staff Imports
 //import StaffDashboard from './Staff/StaffDashboard';
@@ -26,30 +26,30 @@ import "../App.css"
 //import "../assets/css/Staff.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import Login from "./login";
-//import TopBar from './TopBar';
+import TopBar from './TopBar';
 //import ReactWebChat from "./Bot Framework/webChat";
 
 function Main() {
-  //const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("auth")); // Get authenticated status from localStorage
-  //const [user, setUser] = useState(localStorage.getItem("user")); // Get type of user from localStorage
-  //const [recCourses, setRecCourses] = useState(null); // Store recommended courses generated on StudentProfile.js
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("auth")); // Get authenticated status from localStorage
+  const [user, setUser] = useState(localStorage.getItem("user")); // Get type of user from localStorage
+  const [recCourses, setRecCourses] = useState(null); // Store recommended courses generated on StudentProfile.js
   //const [careerRecCourses, setCareerRecCourses] = useState(null); // Store recommended courses generated on Career.js
   //const [chosenCourses, setChosenCourses] = useState([]); // Store courses chosen by the user on CourseList.js
-  //const [show, setShow] = useState(true); // Boolean value to determine whether or not to show the "Begin Advising" button
-  //const [progress, setProgress] = useState(0); // Value of the user's advising progress percentage
-  //const [degProgress, setDegProgress] = useState(0); // Value of the user's degree progress percentage
-  //const [newDeg, setNewDeg] = useState(0); // Value of the user's updated degree progress credits
-  //const [credits, setCredits] = useState(0); // Value of how much credits the user needs to complete their degree
-  //const [hide, setHide] = useState(false); // Boolean value to determine whether or not to show the sidebar or not
+  const [show, setShow] = useState(true); // Boolean value to determine whether or not to show the "Begin Advising" button
+  const [progress, setProgress] = useState(0); // Value of the user's advising progress percentage
+  const [degProgress, setDegProgress] = useState(0); // Value of the user's degree progress percentage
+  const [newDeg, setNewDeg] = useState(0); // Value of the user's updated degree progress credits
+  const [credits, setCredits] = useState(0); // Value of how much credits the user needs to complete their degree
+  const [hide, setHide] = useState(false); // Boolean value to determine whether or not to show the sidebar or not
   //const [showBackBtn, setShowBackBtn] = useState(true); // Boolean value to determine whether or not to show the back button on the course list page
-  //const [loading, setLoading] = useState(true); // Boolean value to determine whether or not to show a loading circle on the sidebar
+  const [loading, setLoading] = useState(true); // Boolean value to determine whether or not to show a loading circle on the sidebar
   //const [year, setYear] = useState(1); // Value of the user's current level
-  //const [warning, setWarning] = useState(false); // Boolean value to indicate whether or not that the user is on academic warning
-  //const [botButtons, setBotButtons] = useState(false); // Boolean value to indicate whether or not to show "Back to Courses" and "Finish Advising" buttons on sidebar
+  const [warning, setWarning] = useState(false); // Boolean value to indicate whether or not that the user is on academic warning
+  const [botButtons, setBotButtons] = useState(false); // Boolean value to indicate whether or not to show "Back to Courses" and "Finish Advising" buttons on sidebar
   //const [programme, setProgramme] = useState(null); // Store what programme a student is current doing
   //const [studCredComplete, setStudCredComplete] = useState(0);//credits a student has completed so far
-  //const [courseInProgCredits, setCourseInProgCredits] = useState(0); //credits of the courses that are in progress
-  //const [gpa, setGpa] = useState(0); //Student's current gpa
+  const [courseInProgCredits, setCourseInProgCredits] = useState(0); //credits of the courses that are in progress
+  const [gpa, setGpa] = useState(0); //Student's current gpa
   //const [inProgCourses, setInProgCourses] = useState([]); //an array of the student's inprogress courses
   //const [transcriptDetails, setTranscriptDetails] = useState(null); //to store a student's transcript details
   //const [gradUploaded, setGradUpload] = useState(false);
@@ -74,11 +74,13 @@ function Main() {
   const setCareerRecommended = (value) => {
     setCareerRecCourses(value);
   };
+  */
 
   const setDisplay = (value) => {
     setShow(value);
   };
 
+  /*
   const setProg = (value) => {
     setProgress(value);
   };
@@ -119,10 +121,12 @@ function Main() {
     setChosenCourses(value);
   };
 
+  */
   const setShowBotButtons = (value) => {
     setBotButtons(value);
   };
 
+  /*
   const setStudentProgramme = (value) => {
     setProgramme(value);
   };
@@ -165,26 +169,29 @@ function Main() {
   */
   
   return (
-    {/*
+    
     <div className="main-panel">
+      
       {user ? <TopBar hide={hide}></TopBar> : null}
       {user === "student" ? <PermanentDrawerRight gpa={gpa} hide={hide} courseInProgCredits={courseInProgCredits} recCourses={recCourses} progress={progress} degProgress={degProgress} credits={credits} show={show} setDisplay={setDisplay} setShowBotButtons={setShowBotButtons} loading={loading} warning={warning} newDeg={newDeg} botButtons={botButtons}/> : null}
-      <Switch>
+      
+      <Routes>
         <Route
           exact
           path="/"
           render={(props) =>
             {
-              if(isAuthenticated && user=="student"){
-                return(<Redirect to="/home"/>)
-              } else if (isAuthenticated && user=="admin"){
-                return(<Redirect to="/staff"/>)
+              if(isAuthenticated && user==="student"){
+                return(<Navigate to="/home"/>)
+              } else if (isAuthenticated && user==="admin"){
+                return(<Navigate to="/staff"/>)
               } else {
-                return(<Redirect to="/login" />)
+                return(<Navigate to="/login" />)
               }
             }
           }
         />
+        {/*
       
         <Route
           exact
@@ -443,11 +450,11 @@ function Main() {
         
 
 
-
-      </Switch>
-
+*/}
+      </Routes>
+  
     </div>
-    */}
+    
   );
 }
 
