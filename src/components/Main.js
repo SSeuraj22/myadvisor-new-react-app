@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-do
 //import Start from './Start';
 //import BeforeBot from './BeforeBot';
 //import Finish from './Finish';
-import PermanentDrawerRight from "./Sidebar";
+import PermanentDrawerRight from "./SideBar";
 
 //Staff Imports
 //import StaffDashboard from './Staff/StaffDashboard';
@@ -25,7 +25,7 @@ import PermanentDrawerRight from "./Sidebar";
 import "../App.css"
 //import "../assets/css/Staff.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import Login from "./login";
+import Login from "./Login";
 import TopBar from './TopBar';
 //import ReactWebChat from "./Bot Framework/webChat";
 
@@ -58,7 +58,7 @@ function Main() {
   //const [courseInProgNCreds, setCourseInProgNCreds] = useState([]); //array to store in progress course code and credits
 
   /* Setter methods for use by the other pages */
-  /*
+  
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
@@ -66,7 +66,7 @@ function Main() {
   const setType = (value) => {
     setUser(value);
   };
-
+/*
   const setRecommended = (value) => {
     setRecCourses(value);
   };
@@ -169,9 +169,7 @@ function Main() {
   */
   
   return (
-    
     <div className="main-panel">
-      
       {user ? <TopBar hide={hide}></TopBar> : null}
       {user === "student" ? <PermanentDrawerRight gpa={gpa} hide={hide} courseInProgCredits={courseInProgCredits} recCourses={recCourses} progress={progress} degProgress={degProgress} credits={credits} show={show} setDisplay={setDisplay} setShowBotButtons={setShowBotButtons} loading={loading} warning={warning} newDeg={newDeg} botButtons={botButtons}/> : null}
       
@@ -191,8 +189,7 @@ function Main() {
             }
           }
         />
-        {/*
-      
+        
         <Route
           exact
           path="/login"
@@ -200,15 +197,15 @@ function Main() {
             {
               if(!isAuthenticated){
                 return <Login {...props} setAuth={setAuth} setType={setType}/>
-              } else if (isAuthenticated && user=="admin"){
-                return(<Redirect to="/staff" />)
-              } else if (isAuthenticated && user=="student"){
-                return(<Redirect to="/home" />)
+              } else if (isAuthenticated && user==="admin"){
+                return(<Navigate to="/staff" />)
+              } else if (isAuthenticated && user==="student"){
+                return(<Navigate to="/home" />)
               }
             }
           }
         />
-        */},
+        
 
         {/*Student Routes*/},
 
