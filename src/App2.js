@@ -25,7 +25,7 @@ import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.c
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit';
 
 
-function App() {
+function App2() {
   const localizer = momentLocalizer(moment);
   const notify = () => toast("Wow so hard!");
 
@@ -211,4 +211,4 @@ function App() {
   );
 }
 
-export default App;
+export default App2;
