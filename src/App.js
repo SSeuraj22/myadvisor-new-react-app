@@ -9,9 +9,7 @@ function App () {
   return (
       <Router>
         <Routes>
-          <Route
-            path="/"
-            render={(props) => <Main {...props} />}
+          <Route path="/*" element={<Main />}
           />
         </Routes>
       </Router>
