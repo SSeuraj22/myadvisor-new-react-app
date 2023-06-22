@@ -198,6 +198,14 @@ function Main() {
           }
         />
         */}
+
+        <Route exact path="/login" element={
+          !isAuthenticated ? (<Login setAuth={setAuth} setType={setType}/>) : 
+          (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
+          (isAuthenticated && user==="student" ? (<Navigate to="/home" />) : (null)))
+        } />
+
+{/* 
         <Route
           exact
           path="/login"
@@ -213,7 +221,7 @@ function Main() {
             }
           }
         />
-        
+        */}
 
         {/*Student Routes*/},
 
