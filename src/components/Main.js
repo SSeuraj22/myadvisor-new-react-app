@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Router, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 
 //Student Imports
-//import StudentProfile from './StudentProfile';
+import StudentProfile from './StudentProfile';
 //import CourseList from './CourseList';
 //import CourseDetails from './CourseDetails';
 //import Career from './Career';
@@ -43,19 +43,19 @@ function Main() {
   const [hide, setHide] = useState(false); // Boolean value to determine whether or not to show the sidebar or not
   //const [showBackBtn, setShowBackBtn] = useState(true); // Boolean value to determine whether or not to show the back button on the course list page
   const [loading, setLoading] = useState(true); // Boolean value to determine whether or not to show a loading circle on the sidebar
-  //const [year, setYear] = useState(1); // Value of the user's current level
+  const [year, setYear] = useState(1); // Value of the user's current level
   const [warning, setWarning] = useState(false); // Boolean value to indicate whether or not that the user is on academic warning
   const [botButtons, setBotButtons] = useState(false); // Boolean value to indicate whether or not to show "Back to Courses" and "Finish Advising" buttons on sidebar
-  //const [programme, setProgramme] = useState(null); // Store what programme a student is current doing
-  //const [studCredComplete, setStudCredComplete] = useState(0);//credits a student has completed so far
+  const [programme, setProgramme] = useState(null); // Store what programme a student is current doing
+  const [studCredComplete, setStudCredComplete] = useState(0);//credits a student has completed so far
   const [courseInProgCredits, setCourseInProgCredits] = useState(0); //credits of the courses that are in progress
   const [gpa, setGpa] = useState(0); //Student's current gpa
-  //const [inProgCourses, setInProgCourses] = useState([]); //an array of the student's inprogress courses
-  //const [transcriptDetails, setTranscriptDetails] = useState(null); //to store a student's transcript details
+  const [inProgCourses, setInProgCourses] = useState([]); //an array of the student's inprogress courses
+  const [transcriptDetails, setTranscriptDetails] = useState(null); //to store a student's transcript details
   //const [gradUploaded, setGradUpload] = useState(false);
   //const [chosenCoursesCreds, setChosenCoursesCreds] = useState(0); // Store chosen courses credits on CourseList.js
   //const [courseChoseNCreds, setCourseChoseNCreds] = useState([]); //array to store chosen course code and credits
-  //const [courseInProgNCreds, setCourseInProgNCreds] = useState([]); //array to store in progress course code and credits
+  const [courseInProgNCreds, setCourseInProgNCreds] = useState([]); //array to store in progress course code and credits
 
   /* Setter methods for use by the other pages */
   
@@ -66,11 +66,11 @@ function Main() {
   const setType = (value) => {
     setUser(value);
   };
-/*
+
   const setRecommended = (value) => {
     setRecCourses(value);
   };
-
+/*
   const setCareerRecommended = (value) => {
     setCareerRecCourses(value);
   };
@@ -80,11 +80,10 @@ function Main() {
     setShow(value);
   };
 
-  /*
   const setProg = (value) => {
     setProgress(value);
   };
-
+ 
   const setDegProg = (value) => {
     setDegProgress(value);
   };
@@ -100,11 +99,11 @@ function Main() {
   const setHidden = (value) => {
     setHide(value);
   };
-
+/*
   const setShowBack = (value) => {
     setShowBackBtn(value);
   };
-
+*/
   const setLoad = (value) => {
     setLoading(value);
   };
@@ -116,7 +115,7 @@ function Main() {
   const setAcWarning = (value) => {
     setWarning(value);
   };
-
+/*
   const setChosen = (value) => {
     setChosenCourses(value);
   };
@@ -130,7 +129,7 @@ function Main() {
   const setStudentProgramme = (value) => {
     setProgramme(value);
   };
-
+*/
   const setCreditsCompleted = (value) => {
     setStudCredComplete(value);
   };
@@ -150,7 +149,7 @@ function Main() {
   const setTransDetails = (value) => {
     setTranscriptDetails(value);
   }
-
+/*
   const setGradUploaded = (value) => {
     setGradUpload(value);
   }
@@ -162,14 +161,10 @@ function Main() {
   const setCourseChoseNCredits = (value) => {
     setCourseChoseNCreds(value);
   }
-
+*/
   const setCourseInProgNCredits = (value) => {
     setCourseInProgNCreds(value);
   }
-  */
-
-  //console.log(!isAuthenticated);
-  //console.log(user);
   
   return (
     <div className="main-panel">
@@ -180,16 +175,23 @@ function Main() {
           <Route exact path="/" element={
             isAuthenticated && user==="student" ? (<Navigate to="/home"/>) : 
             (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
-            (<Navigate replace to="/login" />))
+            (<Navigate replace to="/login"/>))
           } />
 
           <Route exact path="/login" element={
             !isAuthenticated ? (<Login setAuth={setAuth} setType={setType}/>) : 
             (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
-            (isAuthenticated && user==="student" ? (<Navigate to="/home" />) : (null)))
+            (isAuthenticated && user==="student" ? (<Navigate to="/home"/>) : (null)))
           } />
 
           {/*Student Routes*/},
+
+          <Route exact path="/home" element={
+            isAuthenticated && user==="student" ? (<StudentProfile setCourseInProgNCredits={setCourseInProgNCredits} setTransDetails={setTransDetails} setInProgressCourses={setInProgressCourses} setStudentGpa={setStudentGpa} gpa={gpa} courseInProgCredits={courseInProgCredits} setCourseInprogCreds={setCourseInprogCreds} newDeg={newDeg} setNewDegProg={setNewDegProg} credits={credits} setRecommended={setRecommended} setCreditsCompleted={setCreditsCompleted} setDisplay={setDisplay} setProg={setProg} setDegProg={setDegProg} setCreds={setCreds} setHidden={setHidden} setLoad={setLoad} setLevel={setLevel} setAcWarning={setAcWarning} setShowBotButtons={setShowBotButtons} recCourses={recCourses} programme={programme}/>) : 
+            (<Navigate to="/"/>)
+              
+            } 
+          />
 
           {/*
           <Route
