@@ -5,15 +5,13 @@ import Main from './components/Main';
 import './App.css';
 
 function App () {
-
+  
   return (
-    
-      <Router>
-        <Routes>
-          <Route path="/*" element={<Main />}
-          />
-        </Routes>
-      </Router>
+    <Router>
+      <Routes>
+        <Route path="/*" element={<Main />} />
+      </Routes>
+    </Router>
   );
 }
 

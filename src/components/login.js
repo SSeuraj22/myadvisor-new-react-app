@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
-import Background1 from '../assets/images/Background.jpg';
-import Background2 from '../assets/images/Background2.jpg';
+import background1 from '../assets/images/background.jpg';
+import background2 from '../assets/images/background2.jpg';
 import config from '../config.json';
 
 function Copyright() {
@@ -31,7 +31,7 @@ function Copyright() {
   );
 }
 
-const pictureArray = [Background1, Background2];
+const pictureArray = [background1, background2];
 const randomIndex = Math.floor(Math.random() * pictureArray.length);
 const selectedPicture = pictureArray[randomIndex];
 

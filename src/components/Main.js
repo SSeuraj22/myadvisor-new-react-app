@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
+import { Router, Routes, Route, Navigate} from "react-router-dom";
 
 //Student Imports
 //import StudentProfile from './StudentProfile';
@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate} from "react-router-do
 //import Start from './Start';
 //import BeforeBot from './BeforeBot';
 //import Finish from './Finish';
-import PermanentDrawerRight from "./SideBar";
+import PermanentDrawerRight from "./sidebar";
 
 //Staff Imports
 //import StaffDashboard from './Staff/StaffDashboard';
@@ -25,7 +25,7 @@ import PermanentDrawerRight from "./SideBar";
 import "../App.css"
 //import "../assets/css/Staff.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from "./Login";
+import Login from "./login";
 import TopBar from './TopBar';
 //import ReactWebChat from "./Bot Framework/webChat";
 
@@ -167,305 +167,268 @@ function Main() {
     setCourseInProgNCreds(value);
   }
   */
+
+  //console.log(!isAuthenticated);
+  //console.log(user);
   
   return (
     <div className="main-panel">
       {user ? <TopBar hide={hide}></TopBar> : null}
       {user === "student" ? <PermanentDrawerRight gpa={gpa} hide={hide} courseInProgCredits={courseInProgCredits} recCourses={recCourses} progress={progress} degProgress={degProgress} credits={credits} show={show} setDisplay={setDisplay} setShowBotButtons={setShowBotButtons} loading={loading} warning={warning} newDeg={newDeg} botButtons={botButtons}/> : null}
-      
-      <Routes>
-        <Route exact path="/" element={
-          isAuthenticated && user==="student" ? (<Navigate to="/home"/>) : 
-          (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
-          (<Navigate to="/login" />))
-        } />
+    
+        <Routes>
+          <Route exact path="/" element={
+            isAuthenticated && user==="student" ? (<Navigate to="/home"/>) : 
+            (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
+            (<Navigate replace to="/login" />))
+          } />
 
-{/*
-        <Route
-          exact
-          path="/"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return(<Navigate to="/home"/>)
-              } else if (isAuthenticated && user==="admin"){
-                return(<Navigate to="/staff"/>)
-              } else {
-                //console.log("Working")
-                return(<Navigate to="/login"/>)
+          <Route exact path="/login" element={
+            !isAuthenticated ? (<Login setAuth={setAuth} setType={setType}/>) : 
+            (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
+            (isAuthenticated && user==="student" ? (<Navigate to="/home" />) : (null)))
+          } />
+
+          {/*Student Routes*/},
+
+          {/*
+          <Route
+            exact
+            path="/home"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <StudentProfile {...props} setCourseInProgNCredits={setCourseInProgNCredits} setTransDetails={setTransDetails} setInProgressCourses={setInProgressCourses} setStudentGpa={setStudentGpa} gpa={gpa} courseInProgCredits={courseInProgCredits} setCourseInprogCreds={setCourseInprogCreds} newDeg={newDeg} setNewDegProg={setNewDegProg} credits={credits} setRecommended={setRecommended} setCreditsCompleted={setCreditsCompleted} setDisplay={setDisplay} setProg={setProg} setDegProg={setDegProg} setCreds={setCreds} setHidden={setHidden} setLoad={setLoad} setLevel={setLevel} setAcWarning={setAcWarning} setShowBotButtons={setShowBotButtons} recCourses={recCourses} programme={programme}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
-        */}
+          />
 
-        <Route exact path="/login" element={
-          !isAuthenticated ? (<Login setAuth={setAuth} setType={setType}/>) : 
-          (isAuthenticated && user==="admin" ? (<Navigate to="/staff"/>) : 
-          (isAuthenticated && user==="student" ? (<Navigate to="/home" />) : (null)))
-        } />
-
-{/* 
-        <Route
-          exact
-          path="/login"
-          render={(props) =>
-            {
-              if(!isAuthenticated){
-                return <Login {...props} setAuth={setAuth} setType={setType}/>
-              } else if (isAuthenticated && user==="admin"){
-                return(<Navigate to="/staff" />)
-              } else if (isAuthenticated && user==="student"){
-                return(<Navigate to="/home" />)
+          <Route
+            exact
+            path="/courses"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <CourseList {...props} setCourseChoseNCredits={setCourseChoseNCredits} setChosenCoursesCredits={setChosenCoursesCredits} setProg={setProg} setHidden={setHidden} setDisplay={setDisplay} setChosen={setChosen} setNewDegProg={setNewDegProg} showBackBtn={showBackBtn} setShowBotButtons={setShowBotButtons} recCourses={recCourses} careerRecCourses={careerRecCourses} chosenCourses={chosenCourses} newDeg={newDeg}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
-        */}
+          />
 
-        {/*Student Routes*/},
-
-    {/*
-        <Route
-          exact
-          path="/home"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <StudentProfile {...props} setCourseInProgNCredits={setCourseInProgNCredits} setTransDetails={setTransDetails} setInProgressCourses={setInProgressCourses} setStudentGpa={setStudentGpa} gpa={gpa} courseInProgCredits={courseInProgCredits} setCourseInprogCreds={setCourseInprogCreds} newDeg={newDeg} setNewDegProg={setNewDegProg} credits={credits} setRecommended={setRecommended} setCreditsCompleted={setCreditsCompleted} setDisplay={setDisplay} setProg={setProg} setDegProg={setDegProg} setCreds={setCreds} setHidden={setHidden} setLoad={setLoad} setLevel={setLevel} setAcWarning={setAcWarning} setShowBotButtons={setShowBotButtons} recCourses={recCourses} programme={programme}/>
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/coursedetails"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <CourseDetails {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/courses"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <CourseList {...props} setCourseChoseNCredits={setCourseChoseNCredits} setChosenCoursesCredits={setChosenCoursesCredits} setProg={setProg} setHidden={setHidden} setDisplay={setDisplay} setChosen={setChosen} setNewDegProg={setNewDegProg} showBackBtn={showBackBtn} setShowBotButtons={setShowBotButtons} recCourses={recCourses} careerRecCourses={careerRecCourses} chosenCourses={chosenCourses} newDeg={newDeg}/>
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/career"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <Career {...props} setDisplay={setDisplay} setProg={setProg} setCareerRecommended={setCareerRecommended} year={year} recCourses={recCourses}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/coursedetails"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <CourseDetails {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/start"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <Start {...props} setHidden={setHidden} setDegProg={setDegProg} setCreds={setCreds} setShowBack={setShowBack} setRecommended={setRecommended} setShowBotButtons={setShowBotButtons} setStudentProgramme={setStudentProgramme} recCourses={recCourses}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/career"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <Career {...props} setDisplay={setDisplay} setProg={setProg} setCareerRecommended={setCareerRecommended} year={year} recCourses={recCourses}/>
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/almostdone"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <BeforeBot setShowBotButtons={setShowBotButtons}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/start"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <Start {...props} setHidden={setHidden} setDegProg={setDegProg} setCreds={setCreds} setShowBack={setShowBack} setRecommended={setRecommended} setShowBotButtons={setShowBotButtons} setStudentProgramme={setStudentProgramme} recCourses={recCourses}/>
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/finish"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return <Finish courseInProgNCreds={courseInProgNCreds} courseChoseNCreds={courseChoseNCreds} chosenCoursesCreds={chosenCoursesCreds} courseInProgCredits={courseInProgCredits} setGradUploaded={setGradUploaded} gradUploaded={gradUploaded} transcriptDetails={transcriptDetails} inProgCourses={inProgCourses} newDeg={newDeg} chosenCourses={chosenCourses} studCredComplete={studCredComplete} setProg={setProg} setShowBotButtons={setShowBotButtons}/>
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
-
-        <Route
-          exact
-          path="/almostdone"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <BeforeBot setShowBotButtons={setShowBotButtons}/>
-              } else {
-                return(<Redirect to="/" />)
-              }
-            }
-          }
-        />
-
-        <Route
-          exact
-          path="/finish"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return <Finish courseInProgNCreds={courseInProgNCreds} courseChoseNCreds={courseChoseNCreds} chosenCoursesCreds={chosenCoursesCreds} courseInProgCredits={courseInProgCredits} setGradUploaded={setGradUploaded} gradUploaded={gradUploaded} transcriptDetails={transcriptDetails} inProgCourses={inProgCourses} newDeg={newDeg} chosenCourses={chosenCourses} studCredComplete={studCredComplete} setProg={setProg} setShowBotButtons={setShowBotButtons}/>
-              } else {
-                return(<Redirect to="/" />)
-              }
-            }
-          }
-        />    
-    */},
-        {/*Bot Route*/},
-        {/*
-        <Route
-          exact
-          path="/bot"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="student"){
-                return (
-                <div className="row">
-                  <div className="col-sm-10">
-                    <ReactWebChat {...props} />
+          />    
+          */},
+          {/*Bot Route*/},
+          {/*
+          <Route
+            exact
+            path="/bot"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="student"){
+                  return (
+                  <div className="row">
+                    <div className="col-sm-10">
+                      <ReactWebChat {...props} />
+                    </div>
                   </div>
-                </div>
-               )
-              } else {
-                return(<Redirect to="/" />)
+                )
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />  
-    */},
+          />  
+          */},
 
-        {/*Staff Routes*/},
-        {/*
-        <Route
-          exact
-          path="/staff"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <StaffDashboard {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          {/*Staff Routes*/},
+          {/*
+          <Route
+            exact
+            path="/staff"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <StaffDashboard {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />        
+          />        
 
-        <Route
-          exact
-          path="/staff/courses"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <StaffCourses {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/courses"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <StaffCourses {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/staff/programmes"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <Programmes {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/programmes"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <Programmes {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/staff/students"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <Students {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/students"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <Students {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
+          />
 
-        <Route
-          exact
-          path="/staff/settings"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <Settings {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/settings"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <Settings {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />
-        
-        <Route
-          exact
-          path="/staff/reports"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <Reports {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          />
+          
+          <Route
+            exact
+            path="/staff/reports"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <Reports {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />                        
+          />                        
 
-        <Route
-          exact
-          path="/staff/sessions"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <Sessions {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/sessions"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <Sessions {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />  
+          />  
 
-        <Route
-          exact
-          path="/staff/graduates"
-          render={(props) =>
-            {
-              if(isAuthenticated && user==="admin"){
-                return <PotentialGraduates {...props} />
-              } else {
-                return(<Redirect to="/" />)
+          <Route
+            exact
+            path="/staff/graduates"
+            render={(props) =>
+              {
+                if(isAuthenticated && user==="admin"){
+                  return <PotentialGraduates {...props} />
+                } else {
+                  return(<Redirect to="/" />)
+                }
               }
             }
-          }
-        />   
-        
+          />   
 
-
-*/}
-      </Routes>
-  
+          */}
+        </Routes>
     </div>
     
   );
